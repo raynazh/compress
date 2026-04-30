@@ -1,27 +1,3 @@
-# 字符串压缩 API
-
-一个基于 Flask 的字符串压缩服务，用于压缩连续重复的字符。
-
-## 功能说明
-
-将字符串中连续重复的字符进行压缩，规则如下：
-- 重复次数 ≤ 2：保留原样（如 `AA` → `AA`）
-- 重复次数 > 2：压缩为 `字符+次数`（如 `AAA` → `A3`）
-
-## 安装依赖
-
-```bash
-pip install flask
-```
-
-## 运行服务
-
-```bash
-python compress.py
-```
-
-服务将在 `http://localhost:9090` 启动。
-
 ## API 接口
 
 ### 压缩字符串
@@ -93,31 +69,6 @@ curl -X POST http://localhost:9090/compress \
   -d '{"text": "AAABBBBAACC"}'
 ```
 
-### Python
-
-```python
-import requests
-
-response = requests.post(
-    'http://localhost:9090/compress',
-    json={'text': 'AAABBBBAACC'}
-)
-print(response.json())
-```
-
-### JavaScript
-
-```javascript
-fetch('http://localhost:9090/compress', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({ text: 'AAABBBBAACC' })
-})
-  .then(res => res.json())
-  .then(data => console.log(data));
-```
 
 ## 压缩示例
 
@@ -130,22 +81,8 @@ fetch('http://localhost:9090/compress', {
 | `"ABCD"` | `"ABCD"` | 无连续重复 |
 | `"AABBCC"` | `"AABBCC"` | 每段只重复2次 |
 
-## 算法说明
-
-压缩算法采用单次遍历方式：
-1. 遍历字符串，统计连续重复字符的次数
-2. 当字符变化时，处理上一段的压缩逻辑
-3. 根据重复次数决定是否压缩
-4. 时间复杂度：O(n)
-
 ## 测试
-
-运行测试文件：
 
 ```bash
 python test.py
 ```
-
-## 许可证
-
-MIT License
